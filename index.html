@@ -21,13 +21,10 @@
             let hand = prompt("Choose Rock, Paper, or Scissors")
             let check = hand.toLowerCase();
             if (check == 'rock' || check == 'paper' || check == 'scissors') {
-                return capitalize(hand);
+                return check;
             } else {
-                hand = "";
-                check = "";
-                alert("Please make a valid entry");
-                humanPlay();
-                return;
+                alert("Please enter a valid option");
+                return "redo"
             }
         }
 
@@ -55,12 +52,7 @@
         }
 
         function capitalize(str) {
-            if (str == undefined) {
-                let result = humanPlay();
-                return result;
-            } else {
-                return str.charAt(0).toUpperCase() + str.slice(1).toLowerCase()
-            }
+            return str.charAt(0).toUpperCase() + str.slice(1).toLowerCase()
         }
 
         function game() {
@@ -69,24 +61,34 @@
             score[1] = 0;
             let rounds = 5;
             let i;
-            while(score[0] < rounds - 2 || score[1] < rounds - 2) {
+            for(i = 0; i < rounds; i++) {
                 const playerSelection = capitalize(humanPlay())
-                const computerSelection = computerPlay()
-                //console.log(computerSelection)
-                console.log("You chose: " + playerSelection)
-                console.log("Computer chose: " + computerSelection)
-                const result = playRound(playerSelection, computerSelection)
-                print_Match_Result(result)
-                if(result.includes("Win")) {
-                    score[0]++
-                } else if (result.includes("Lose")) {
-                    score[1]++
-                } else {printScore(score)}
-                printScore(score)
+                if(playerSelection == "Rock" || playerSelection == "Paper" || playerSelection == "Scissors"){
+                    const computerSelection = computerPlay()
+                    console.log("You chose: " + playerSelection)
+                    console.log("Computer chose: " + computerSelection)
+                    const result = playRound(playerSelection, computerSelection)
+
+                    print_Match_Result(result)
+
+                    if(result.includes("Win")) {
+                        score[0]++
+                    } else if (result.includes("Lose")) {
+                        score[1]++
+                    } else {printScore(score)}
+                    printScore(score)
+                } else if(playerSelection == "redo"){
+                    playerSelection = capitalize(humanPlay());
+                    i--;
+                } else {i--;}
+                
             }
+
             if(score[0] > score[1]) {
                 showWinningMessage()
-            } else {showLosingMessage()}
+            } else if(score[0] < score[1]) {
+                showLosingMessage()
+            } else {showDrawMessage()}
 
             score[0] = 0;
             score[1] = 0;
@@ -105,8 +107,12 @@
             console.log("Congratualtions! You won the game!")
         }
 
+        function showDrawMessage() {
+            console.log("It's a Draw! Play again?")
+        }
+
         function showLosingMessage() {
-            console.log("You lose! Try again?")
+            console.log("You lose! Play again?")
         }
         game();
     </script>
