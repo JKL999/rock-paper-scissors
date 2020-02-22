@@ -1,3 +1,6 @@
+
+
+
 function computerPlay() {
     choice = Math.floor(Math.random() * 3);
     let hand = "";
@@ -8,20 +11,14 @@ function computerPlay() {
 }
 
 function humanPlay() {
-    let hand = prompt("Choose Rock, Paper, or Scissors")
-    let check = hand.toLowerCase();
-    if (check == 'rock' || check == 'paper' || check == 'scissors') {
-        return check;
-    } else {
-        alert("Please enter a valid option");
-        return "redo"
-    }
+    
+    
 }
 
 function playRound(playerSelection, computerSelection) {
     let win = "You Win! " + playerSelection + " beats " + computerSelection;
     let lose = "You Lose! " + computerSelection + " beats " + playerSelection;
-    let draw = "It's a Draw! You both picked " + playerSelection
+    let draw = "It's a Draw! You both picked " + playerSelection;
     switch(playerSelection) {
         case "Rock":
             if(computerSelection == "Scissors") return win;
@@ -49,36 +46,38 @@ function game() {
     let score = new Array(2);
     score[0] = 0;
     score[1] = 0;
-    let rounds = 5;
-    let i;
-    for(i = 0; i < rounds; i++) {
-        const playerSelection = capitalize(humanPlay())
-        if(playerSelection == "Rock" || playerSelection == "Paper" || playerSelection == "Scissors"){
-            const computerSelection = computerPlay()
-            console.log("You chose: " + playerSelection)
-            console.log("Computer chose: " + computerSelection)
-            const result = playRound(playerSelection, computerSelection)
 
-            print_Match_Result(result)
+    const buttons = document.querySelectorAll('.btn-group');
 
-            if(result.includes("Win")) {
-                score[0]++
-            } else if (result.includes("Lose")) {
-                score[1]++
-            } else {printScore(score)}
-            printScore(score)
+    buttons.forEach((button) => {
+        button.addEventListener('click', playRound(button.innerText,computerPlay()));
+    })
+
+
+        console.log("You chose: " + playerSelection);
+        console.log("Computer chose: " + computerSelection);
+        const result = playRound(playerSelection, computerSelection);
+
+        print_Match_Result(result);
+
+        if(result.includes("Win")) {
+            score[0]++;
+        } else if (result.includes("Lose")) {
+            score[1]++;
+        } else {printScore(score)}
+            printScore(score);
         } else if(playerSelection == "redo"){
             playerSelection = capitalize(humanPlay());
             i--;
         } else {i--;}
         
-    }
+    
 
     if(score[0] > score[1]) {
-        showWinningMessage()
+        showWinningMessage();
     } else if(score[0] < score[1]) {
-        showLosingMessage()
-    } else {showDrawMessage()}
+        showLosingMessage();
+    } else {showDrawMessage();}
 
     score[0] = 0;
     score[1] = 0;

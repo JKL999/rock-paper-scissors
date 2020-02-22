@@ -1,0 +1,33 @@
+.scoreboard {
+    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+    text-align: center;
+}
+
+.btn-group {
+    text-align: center;
+    vertical-align: ;
+}
+
+.btn-group button {
+   background-color: black;
+   border: 1px solid gold;
+   color: white;
+   padding: 10px 24px;
+   cursor: pointer;
+}
+
+.btn-group button:not(:last-child) {
+    border-right: none; /* Prevent double borders */
+}
+
+/* Clear floats (clearfix hack) */
+.btn-group:after {
+    content: "";
+    clear: both;
+    display: table;
+}
+
+/* Add a background color on hover */
+.btn-group button:hover {
+    background-color: #b6a616;
+  }
