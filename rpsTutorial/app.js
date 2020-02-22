@@ -58,13 +58,28 @@ const game = () => {
     const updateScore = () => {
         const playerScore = document.querySelector('.player-score p');
         const computerScore = document.querySelector('.computer-score p');
+        const winner = document.querySelector('.winner');
         playerScore.textContent = pScore;
         computerScore.textContent = cScore;
+        if(pScore == 5 && cScore < 5) {
+            winner.textContent = 'Player Wins The Match!';
+            pScore = 0;
+            cScore = 0;
+            startGame();
+        };
+        if(cScore == 5 && pScore < 5) {
+            winner.textContent = 'Computer Wins The Match!';
+            pScore = 0;
+            cScore = 0;
+            startGame();
+        };
     }
 
     const compareHands = (playerChoice, computerChoice) => {
         //Update Text
         const winner = document.querySelector('.winner');
+        
+
         switch(playerChoice) {
             case "rock":
                 if(computerChoice == "scissors") {
@@ -119,9 +134,9 @@ const game = () => {
                     updateScore();
                     return;
                 } break;
-        } 
+        }; 
         
-    }
+    };
     //Call all inner functions
     startGame();
     playMatch();
