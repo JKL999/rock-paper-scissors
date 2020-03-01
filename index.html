@@ -4,117 +4,42 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Document</title>
+    <title>Rock Paper Scissors</title>
+    <link rel='stylesheet' type='text/css' href='styles2.css'>
 </head>
 <body>
-    <script>
-        function computerPlay() {
-            choice = Math.floor(Math.random() * 3);
-            let hand = "";
-            if (choice == 0) {hand = "Rock"}
-            else if (choice == 1) {hand = "Paper"}
-            else if (choice == 2) {hand = "Scissors"}
-            return hand;
-        }
-        
-        function humanPlay() {
-            let hand = prompt("Choose Rock, Paper, or Scissors")
-            let check = hand.toLowerCase();
-            if (check == 'rock' || check == 'paper' || check == 'scissors') {
-                return check;
-            } else {
-                alert("Please enter a valid option");
-                return "redo"
-            }
-        }
+    <section class='game'>
+        <div class="score">
+            <div class="player-score">
+                <h2>Player</h2>
+                <p>0</p>
+            </div>
+            <div class="computer-score">
+                <h2>Computer</h2>
+                <p>0</p>
+            </div>
+        </div>
 
-        function playRound(playerSelection, computerSelection) {
-            let win = "You Win! " + playerSelection + " beats " + computerSelection;
-            let lose = "You Lose! " + computerSelection + " beats " + playerSelection;
-            let draw = "It's a Draw! You both picked " + playerSelection
-            switch(playerSelection) {
-                case "Rock":
-                    if(computerSelection == "Scissors") return win;
-                    else if(computerSelection == "Paper") return lose;
-                    else return draw;
-                    break;   
-                case "Paper":
-                    if(computerSelection == "Rock") return win;
-                    else if(computerSelection == "Scissors") return lose;
-                    else return draw;
-                    break;
-                case "Scissors":
-                    if(computerSelection == "Paper") return win;
-                    else if(computerSelection == "Rock") return lose;
-                    else return draw;
-                    break; 
-            }   
-        }
+        <div class="intro">
+            <h1>Welcome to Rock Paper Scissors</h1>
+            <h2>First to 5 points wins!</h2>
+            <button>Let's Play</button>
+        </div>
 
-        function capitalize(str) {
-            return str.charAt(0).toUpperCase() + str.slice(1).toLowerCase()
-        }
+        <div class="match fadeOut">
+            <h2 class='winner'>Choose an option</h2>
+            <div class="hands">
+                <img class='player-hand' src='./assets/rock.png' alt=''>
+                <img class='computer-hand' src='./assets/rock.png' alt=''>
+            </div>
+            <div class="options">
+                <button class="rock">rock</button>
+                <button class="paper">paper</button>
+                <button class="scissors">scissors</button>
+            </div>
 
-        function game() {
-            let score = new Array(2);
-            score[0] = 0;
-            score[1] = 0;
-            let rounds = 5;
-            let i;
-            for(i = 0; i < rounds; i++) {
-                const playerSelection = capitalize(humanPlay())
-                if(playerSelection == "Rock" || playerSelection == "Paper" || playerSelection == "Scissors"){
-                    const computerSelection = computerPlay()
-                    console.log("You chose: " + playerSelection)
-                    console.log("Computer chose: " + computerSelection)
-                    const result = playRound(playerSelection, computerSelection)
-
-                    print_Match_Result(result)
-
-                    if(result.includes("Win")) {
-                        score[0]++
-                    } else if (result.includes("Lose")) {
-                        score[1]++
-                    } else {printScore(score)}
-                    printScore(score)
-                } else if(playerSelection == "redo"){
-                    playerSelection = capitalize(humanPlay());
-                    i--;
-                } else {i--;}
-                
-            }
-
-            if(score[0] > score[1]) {
-                showWinningMessage()
-            } else if(score[0] < score[1]) {
-                showLosingMessage()
-            } else {showDrawMessage()}
-
-            score[0] = 0;
-            score[1] = 0;
-            i = 0;
-        }
-
-        function printScore(array) {
-            console.log("The Score is: " + array[0] + " Player vs " + array[1] + " Computer")
-        }
-
-        function print_Match_Result(str) {
-            console.log(str)
-        }
-
-        function showWinningMessage() {
-            console.log("Congratualtions! You won the game!")
-        }
-
-        function showDrawMessage() {
-            console.log("It's a Draw! Play again?")
-        }
-
-        function showLosingMessage() {
-            console.log("You lose! Play again?")
-        }
-        game();
-    </script>
+        </div>
+    </section>
+    <script src='app.js'></script>
 </body>
 </html>
